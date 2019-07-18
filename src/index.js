@@ -47,7 +47,7 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
-	log.info('action', ctx.header.log, new Date().toJSON());
+	log.info('ip 35.247.250.149 action', ctx.header.log, new Date().toJSON());
 	//log2.info('subscription to ', ' accepted at ', new Date().toJSON());
 	await next();
 });
