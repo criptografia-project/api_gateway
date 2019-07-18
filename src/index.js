@@ -13,6 +13,22 @@ const app = new Koa();
 const router = new KoaRouter();
 const PORT = process.env.PORT || 5000;
 
+const log = require('simple-node-logger').createSimpleFileLogger('project.log');
+
+//const Loggerr = require('loggerr');
+//var fs  = require('fs');
+
+//var logfile = fs.createWriteStream('./stdout.log', {
+//    flags: 'a',
+//    encoding: 'utf8'
+//});
+ 
+//const log2 = new Loggerr({
+//    streams: Loggerr.levels.map(function() {
+//        return logfile;
+//    })
+//});
+
 app.use(koaLogger());
 app.use(koaCors());
 
@@ -24,6 +40,15 @@ app.use(async (ctx, next) => {
 			ctx.state.token = token[1];
 		}
 	}
+	//log.info('subscription to ', ' accepted at ', new Date().toJSON());
+        //log2.info('subscription to ', ' accepted at ', new Date().toJSON());
+	//logfile.write("Ecribir esto");
+	await next();
+});
+
+app.use(async (ctx, next) => {
+	log.info('action', ctx.header.log, new Date().toJSON());
+	//log2.info('subscription to ', ' accepted at ', new Date().toJSON());
 	await next();
 });
 
